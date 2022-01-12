@@ -64,106 +64,85 @@ class _StatusDataTableState extends State<StatusDataTable> {
   }
 
   Widget _getBodyWidget() {
-    return Column(
-
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 12.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Tracking number : "),
-              Text('$_trackNumber'),
-            ],
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
           children: [
-            Text("Applicant Name : "),
-            Text('$_name'),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Mobile number : "),
-            Text('$_mobileNumber'),
-          ],
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          child: HorizontalDataTable(
-            leftHandSideColumnWidth: 120,
-            rightHandSideColumnWidth: 600,
-            isFixedHeader: true,
-            headerWidgets: _getTitleWidget(totalMeters),
-            leftSideItemBuilder: _generateFirstColumnRow,
-            rightSideItemBuilder: _generateRightHandSideColumnRow,
-            itemCount: user.userInfo.length,
-            rowSeparatorWidget: const Divider(
-              color: Colors.black54,
-              height: 1.0,
-              thickness: 0.0,
+            Padding(
+              padding: const EdgeInsets.only(top: 12.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Tracking number : "),
+                  Text('$_trackNumber'),
+                ],
+              ),
             ),
-            leftHandSideColBackgroundColor: Color(0xFFFFFFFF),
-            rightHandSideColBackgroundColor: Color(0xFFFFFFFF),
-          ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Applicant Name : "),
+                Text('$_name'),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Mobile number : "),
+                Text('$_mobileNumber'),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              color: Colors.amberAccent,
+              child: HorizontalDataTable(
+                leftHandSideColumnWidth: 120,
+                rightHandSideColumnWidth: totalMeters*155,
+                isFixedHeader: true,
+                headerWidgets: _getTitleWidget(totalMeters),
+                leftSideItemBuilder: _generateFirstColumnRow,
+                rightSideItemBuilder: _generateRightHandSideColumnRow,
+                itemCount: user.userInfo.length,
+                rowSeparatorWidget: const Divider(
+                  color: Colors.amber,
+                  height: 1.0,
+                  thickness: 0.0,
+                ),
+                leftHandSideColBackgroundColor: Color(0xFFFFFFFF),
+                rightHandSideColBackgroundColor: Color(0xFFFFFFFF),
+              ),
 
-          height: 450,
+              height: MediaQuery.of(context).size.height-100,
+            ),
+
+            Container(
+                alignment: Alignment.topCenter,
+                child:
+                MyCustomButton(buttonText:  Languages.of(context)!.GoToPayment, onTap: () {
+
+                  //Navigator.push(context, MaterialPageRoute(builder: (context) => NewConnectionPayment()));
+                })),
+            Container(height: 35,color: Colors.transparent,),
+          ],
         ),
-
-        Flexible(
-          child: Container(
-              margin: EdgeInsets.all(20.0),
-              child: OutlineButton(
-                child: Text('Submit'),
-                textColor: Colors.black,
-                color: Colors.green,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0)),
-                onPressed: () {
-                  // Navigator.of(context).push( MaterialPageRoute(builder: (BuildContext context) =>  CheckInQ()));
-                },
-              )
-          ),
-        )
-      ],
+      ),
     );
   }
 
   List<Widget> _getTitleWidget(int length) {
     return [
-      FlatButton(
-        padding: EdgeInsets.all(0),
-        child: _getTitleItemWidget(
-            'Status Name',
-            120,Colors.grey),
-        onPressed: () {
-          setState(() {
-
-          });
-        },
-      ),
-      Container(width: 2,height: 56,color: Colors.white,),
+      _getTitleItemWidget('Status Name', 120,Colors.grey),
+      Container(width: 2,height: 35,color: Colors.white,),
       _getTitleItemWidget('Sl#', 100,Colors.grey),
-      Container(width: 2,height: 56,color: Colors.white,),
-      FlatButton(
-        padding: EdgeInsets.all(0),
-        child: _getTitleItemWidget('Sl#', 100,Colors.grey),
-        onPressed: () {
-          setState(() {
-
-          });
-        },
-      ),
-      Container(width: 2,height: 56,color: Colors.white,),
+      Container(width: 2,height: 35,color: Colors.white,),
       _getTitleItemWidget('Sl#', 100,Colors.grey),
-      Container(width: 2,height: 56,color: Colors.white,),
+      Container(width: 2,height: 35,color: Colors.white,),
       _getTitleItemWidget('Sl#', 100,Colors.grey),
-      Container(width: 2,height: 56,color: Colors.white,),
+      Container(width: 2,height: 35,color: Colors.white,),
+      _getTitleItemWidget('Sl#', 100,Colors.grey),
+      Container(width: 2,height: 35,color: Colors.white,),
       _getTitleItemWidget('Sl#', 100,Colors.grey),
     ];
   }
@@ -172,9 +151,9 @@ class _StatusDataTableState extends State<StatusDataTable> {
   Widget _getTitleItemWidget(String label, double width, color) {
     return Container(
       color: color,
-      child: Text(label, style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18,color: Colors.white)),
+      child: Text(label, style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Colors.white)),
       width: width,
-      height: 56,
+      height: 35,
       padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
       alignment: Alignment.centerLeft,
     );
@@ -183,58 +162,71 @@ class _StatusDataTableState extends State<StatusDataTable> {
   Widget _generateFirstColumnRow(BuildContext context, int index) {
     return Container(
       color: Colors.blueGrey,
-      child: Text(user.userInfo[index].account,style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.white),),
+      child: Text('ssssss',style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Colors.white),),
       width: 120,
-      height: 52,
+      height: 35,
       padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
       alignment: Alignment.centerLeft,
     );
   }
 
   Widget _generateRightHandSideColumnRow(BuildContext context, int index) {
-    return Row(
-      children: <Widget>[
-        Container(
-          child: Text(user.userInfo[index].mobile,style: TextStyle(fontSize: 18),),
-          width: 100,
-          height: 52,
-          padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-          alignment: Alignment.centerLeft,
-        ),
-        Container(width: 2,height: 56,color: Colors.blueGrey,),
-        Container(
-          child: Text(user.userInfo[index].address,style: TextStyle(fontSize: 18),),
-          width: 100,
-          height: 52,
-          padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-          alignment: Alignment.centerLeft,
-        ),
-        Container(width: 2,height: 56,color: Colors.blueGrey,),
-        Container(
-          child: Text(user.userInfo[index].designation,style: TextStyle(fontSize: 18),),
-          width: 100,
-          height: 52,
-          padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-          alignment: Alignment.centerLeft,
-        ),
-        Container(width: 2,height: 56,color: Colors.blueGrey,),
-        Container(
-          child: Text(user.userInfo[index].post,style: TextStyle(fontSize: 18),),
-          width: 100,
-          height: 52,
-          padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-          alignment: Alignment.centerLeft,
-        ),
-        Container(width: 2,height: 56,color: Colors.blueGrey,),
-        Container(
-          child: Text(user.userInfo[index].stats,style: TextStyle(fontSize: 18),),
-          width: 100,
-          height: 52,
-          padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-          alignment: Alignment.centerLeft,
-        ),
-        Container(width: 2,height: 56,color: Colors.blueGrey,),
-      ],
+    return Container(
+      width: 100,
+      height: 35,
+      child: Row(
+        children: <Widget>[
+          Container(width: 2,height: 35,color: Colors.white,),
+          Container(
+            constraints: BoxConstraints(
+              maxHeight: 35,
+            ),
+            decoration : BoxDecoration(color : Colors.green),
+            child: Text('NNNNNN',style: TextStyle(fontSize: 12),),
+            width: 100,
+            height: 35,
+            padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+            alignment: Alignment.centerLeft,
+          ),
+          Container(width: 2,height: 35,color: Colors.white,),
+          Container(
+            decoration : BoxDecoration(color : Colors.green),
+            child: Text(user.userInfo[index].address,style: TextStyle(fontSize: 18),),
+            width: 100,
+            height: 35,
+            padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+            alignment: Alignment.centerLeft,
+          ),
+          Container(width: 2,height: 35,color: Colors.white,),
+          Container(
+            decoration : BoxDecoration(color : Colors.green),
+            child: Text(user.userInfo[index].designation,style: TextStyle(fontSize: 18),),
+            width: 100,
+            height: 35,
+            padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+            alignment: Alignment.centerLeft,
+          ),
+          Container(width: 2,height: 35,color: Colors.white,),
+          Container(
+            decoration : BoxDecoration(color : Colors.green),
+            child: Text(user.userInfo[index].post,style: TextStyle(fontSize: 18),),
+            width: 100,
+            height: 35,
+            padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+            alignment: Alignment.centerLeft,
+          ),
+          Container(width: 2,height: 35,color: Colors.white,),
+          Container(
+            decoration : BoxDecoration(color : Colors.green),
+            child: Text(user.userInfo[index].stats,style: TextStyle(fontSize: 18),),
+            width: 100,
+            height: 35,
+            padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+            alignment: Alignment.centerLeft,
+          ),
+          Container(width: 2,height: 35,color: Colors.white,),
+        ],
+      ),
     );
   }
 
